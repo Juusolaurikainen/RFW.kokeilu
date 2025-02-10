@@ -3,7 +3,7 @@ name: Run Robot Framework Tests
 on:
   push:
     branches:
-      - main  # Ajetaan aina, kun teet pushin main-haaraan
+      - master  # Ajetaan aina, kun teet pushin main-haaraan
 
 jobs:
   test:
