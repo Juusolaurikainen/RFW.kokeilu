@@ -25,3 +25,9 @@ Tämä projekti automatisoi uuden asiakkaan lisäyksen testauksen CRM-sovellukse
 ## 📋 **Playground Sivusto**
 
 https://automationplayground.com/crm/index.html
+
+
+### **Video:**
+- ** `video.mp4`. 
+
+
