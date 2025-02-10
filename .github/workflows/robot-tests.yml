@@ -24,4 +24,4 @@ jobs:
           pip install robotframework  # Varmista, että Robot Framework on asennettu
 
       - name: Run Robot Framework tests
-        run: robot tests/  # Ajaa testit "tests"-kansiossa (muokkaa polkua tarpeen mukaan)
+        run: robot Tests/  # Ajaa testit "tests"-kansiossa (muokkaa polkua tarpeen mukaan)
