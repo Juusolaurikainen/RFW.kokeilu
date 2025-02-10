@@ -1,0 +1,27 @@
+name: Run Robot Framework Tests
+
+on:
+  push:
+    branches:
+      - main  # Ajetaan aina, kun teet pushin main-haaraan
+
+jobs:
+  test:
+    runs-on: ubuntu-latest  # GitHub käyttää Ubuntu-palvelinta testien ajamiseen
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3  # Lataa projektin GitHubista
+
+      - name: Set up Python
+        uses: actions/setup-python@v3
+        with:
+          python-version: 3.8  # Käytetään Python 3.8:aa, muokkaa tarvittaessa
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt  # Asenna kaikki riippuvuudet
+          pip install robotframework  # Varmista, että Robot Framework on asennettu
+
+      - name: Run Robot Framework tests
+        run: robot tests/  # Ajaa testit "tests"-kansiossa (muokkaa polkua tarpeen mukaan)
