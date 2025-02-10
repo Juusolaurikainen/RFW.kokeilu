@@ -3,25 +3,36 @@ name: Run Robot Framework Tests
 on:
   push:
     branches:
-      - master  # Ajetaan aina, kun teet pushin main-haaraan
+      - main
 
 jobs:
   test:
-    runs-on: ubuntu-latest  # GitHub käyttää Ubuntu-palvelinta testien ajamiseen
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3  # Lataa projektin GitHubista
+        uses: actions/checkout@v3
 
       - name: Set up Python
         uses: actions/setup-python@v3
         with:
-          python-version: 3.8  # Käytetään Python 3.8:aa, muokkaa tarvittaessa
+          python-version: 3.8
 
       - name: Install dependencies
         run: |
-          pip install -r requirements.txt  # Asenna kaikki riippuvuudet
-          pip install robotframework  # Varmista, että Robot Framework on asennettu
+          pip install -r requirements.txt
+          pip install robotframework
+          pip install robotframework-seleniumlibrary
+
+      - name: Install Chrome browser and WebDriver
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y chromium-browser
+          sudo apt-get install -y chromium-chromedriver
+
+      - name: Set environment variables
+        run: |
+          export PATH=$PATH:/usr/lib/chromium-browser/
 
       - name: Run Robot Framework tests
-        run: robot Tests/  # Ajaa testit "tests"-kansiossa (muokkaa polkua tarpeen mukaan)
+        run: robot Tests/
