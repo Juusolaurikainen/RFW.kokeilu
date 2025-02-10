@@ -1,4 +1,4 @@
-name: Run Robot Framework Tests
+name: Run Robot Framework Tests with Firefox
 
 on:
   push:
@@ -24,15 +24,16 @@ jobs:
           pip install robotframework
           pip install robotframework-seleniumlibrary
 
-      - name: Install Chrome browser and WebDriver
+      - name: Install Firefox and GeckoDriver
         run: |
           sudo apt-get update
-          sudo apt-get install -y chromium-browser
-          sudo apt-get install -y chromium-chromedriver
-
-      - name: Set environment variables
-        run: |
-          export PATH=$PATH:/usr/lib/chromium-browser/
+          sudo apt-get install -y firefox
+          sudo apt-get install -y wget
+          GECKODRIVER_VERSION=$(curl -s https://api.github.com/repos/mozilla/geckodriver/releases/latest | grep tag_name | cut -d '"' -f 4)
+          wget https://github.com/mozilla/geckodriver/releases/download/$GECKODRIVER_VERSION/geckodriver-v$GECKODRIVER_VERSION-linux64.tar.gz
+          tar -xvzf geckodriver-v$GECKODRIVER_VERSION-linux64.tar.gz
+          sudo mv geckodriver /usr/local/bin/
 
       - name: Run Robot Framework tests
         run: robot Tests/
+
